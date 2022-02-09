@@ -19,6 +19,7 @@ I wanted to create a project to practice learning how to create an app with Reac
 - ~~Chart.JS~~ Recharts
 
 **API:**
+- RapidAPI
 - Coinranking - for currency data and global stats 
 - Coinpaprika - for market exchange data
 - Bing News - for recent news data
