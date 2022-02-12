@@ -37,12 +37,14 @@ const Sidebar = () => {
   return (
     <nav className="bg-gray-800 h-16 md:h-full w-full md:w-72 fixed top-0 left-0 flex md:flex-col z-50">
         {/* Logo + Header */}
-        <div className="flex items-center justify-start mx-6 md:my-12">
+
+        <NavLink as="div" to="/" className="flex items-center justify-start mx-6 md:my-12">
           <img className="h-8" src={logo} alt="Cryptomate" />
           <span className="text-neutral-50 text-3xl font-black ml-3 hidden md:block">
             Cryptomate
           </span>
-        </div>
+        </NavLink>
+        
 
         <div className="flex md:flex-col ml-auto md:ml-0">
         {/* Navigation Links */}
