@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import millify from "millify";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 
 import { useGetAllCryptosQuery } from "../services/cryptoApi";
@@ -57,11 +56,12 @@ const Home = () => {
             <Loader />
           ) : (
             <span className={classes.sectionDescription}>
-              {"$" +
-                millify(globalStats?.totalMarketCap, {
-                  precision: 4,
-                  space: true,
-                })}
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                notation: "compact",
+                maximumFractionDigits: 4,
+              }).format(globalStats?.totalMarketCap)}
             </span>
           )}
         </div>
@@ -71,11 +71,12 @@ const Home = () => {
             <Loader />
           ) : (
             <span className={classes.sectionDescription}>
-              {"$" +
-                millify(globalStats.total24hVolume, {
-                  precision: 4,
-                  space: true,
-                })}
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                notation: "compact",
+                maximumFractionDigits: 4,
+              }).format(globalStats.total24hVolume)}
             </span>
           )}
         </div>

@@ -1,5 +1,3 @@
-import millify from "millify";
-
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 
@@ -44,11 +42,12 @@ const Exchanges = () => {
                       {name}
                     </span>
                     <span className="flex-1">
-                      $
-                      {millify(quotes.USD.adjusted_volume_24h, {
-                        precision: 5,
-                        space: true,
-                      })}
+                      {new Intl.NumberFormat("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                          notation : "compact",
+                          maximumFractionDigits: 4,
+                        }).format(quotes.USD.adjusted_volume_24h)}
                     </span>
                     <span className="flex-1">{markets}</span>
                     <span className="flex-1">{currencies}</span>

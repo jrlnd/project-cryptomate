@@ -1,7 +1,6 @@
 import { useState } from "react";
 import parse, { attributesToProps, domToReact } from "html-react-parser";
 import { useLocation } from "react-router-dom";
-import millify from "millify";
 
 import {
   CurrencyDollarIcon,
@@ -50,7 +49,11 @@ const Details = () => {
   const stats = [
     {
       title: "Price to USD",
-      value: `$${details?.price && millify(details?.price, { precision: 5 })}`,
+      value: details?.price ? new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: details?.price < 100 ? 5: 2,
+      }).format(details.price) : "N/A",
       icon: (
         <CurrencyDollarIcon
           className={titleIconClass}
@@ -70,7 +73,12 @@ const Details = () => {
     },
     {
       title: "24h Volume",
-      value: `$${details && millify(details["24hVolume"], { precision: 3 })}`,
+      value: details ? new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation : "compact",
+        maximumFractionDigits: 3,
+      }).format(details["24hVolume"]) : "N/A",
       icon: (
         <LightningBoltIcon
           className={titleIconClass}
@@ -80,9 +88,12 @@ const Details = () => {
     },
     {
       title: "Market Cap",
-      value: `$${
-        details?.marketCap && millify(details?.marketCap, { precision: 3 })
-      }`,
+      value: details?.marketCap ? new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          notation : "compact",
+          maximumFractionDigits: 3,
+        }).format(details.marketCap) : "N/A",
       icon: (
         <TrendingUpIcon
           className={titleIconClass}
@@ -92,10 +103,12 @@ const Details = () => {
     },
     {
       title: "All-time high",
-      value: `$${
-        details?.allTimeHigh?.price &&
-        millify(details?.allTimeHigh?.price, { precision: 5 })
-      }`,
+      value: details?.allTimeHigh?.price ? new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation : "compact",
+        maximumFractionDigits: 3,
+      }).format(details?.allTimeHigh?.price) : "N/A",
       icon: (
         <StarIcon
           className={titleIconClass}
@@ -108,7 +121,7 @@ const Details = () => {
   const globalStats = [
     {
       title: "Number Of Markets",
-      value: details?.numberOfMarkets,
+      value: details?.numberOfMarkets.toLocaleString(),
       icon: (
         <ChartBarIcon
           className={titleIconClass}
@@ -118,7 +131,7 @@ const Details = () => {
     },
     {
       title: "Number Of Exchanges",
-      value: details?.numberOfExchanges,
+      value: details?.numberOfExchanges.toLocaleString(),
       icon: (
         <SwitchHorizontalIcon
           className={titleIconClass}
@@ -142,10 +155,12 @@ const Details = () => {
     },
     {
       title: "Total Supply",
-      value: `$ ${
-        details?.supply?.total &&
-        millify(details?.supply?.total, { precision: 3 })
-      }`,
+      value: details?.supply?.total ? new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation : "compact",
+        maximumFractionDigits: 3,
+      }).format(details?.supply?.total) : "N/A",
       icon: (
         <InboxIcon
           className={titleIconClass}
@@ -155,10 +170,12 @@ const Details = () => {
     },
     {
       title: "Circulating Supply",
-      value: `$ ${
-        details?.supply?.circulating &&
-        millify(details?.supply?.circulating, { precision: 3 })
-      }`,
+      value: details?.supply?.circulating ? new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation : "compact",
+        maximumFractionDigits: 3,
+      }).format(details?.supply?.circulating) : "N/A",
       icon: (
         <InboxInIcon
           className={titleIconClass}

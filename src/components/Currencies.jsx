@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import millify from "millify";
 
 import { SearchIcon } from "@heroicons/react/solid";
 
@@ -20,17 +19,6 @@ const Currencies = ({ simplified }) => {
 
     setCryptos(filteredData);
   }, [cryptosList, searchTerm]);
-
-  const toggleMillify = (e, value) => {
-    e.target.dataset.current =
-      parseInt(e.target.dataset.current) === parseInt(e.target.dataset.min)
-        ? parseInt(e.target.dataset.max)
-        : parseInt(e.target.dataset.min);
-    e.target.innerHTML = millify(value, {
-      precision: parseInt(e.target.dataset.current),
-      space: true,
-    });
-  };
 
   return (
     <>
@@ -82,35 +70,24 @@ const Currencies = ({ simplified }) => {
                 <div className="mx-4 my-6">
                   <p className="my-2">
                     <span className="font-medium">Price: </span>
-                    <span
-                      className="hover:cursor-pointer"
-                      data-current={3}
-                      data-min={3}
-                      data-max={10}
-                      onClick={(e) => toggleMillify(e, currency.price)}
-                    >
-                      {currency.price < 10
-                        ? "$" +
-                          millify(currency.price, { precision: 5, space: true })
-                        : new Intl.NumberFormat("en-US", {
+                    <span>
+                      {new Intl.NumberFormat("en-US", {
                             style: "currency",
                             currency: "USD",
+                            maximumFractionDigits: currency.price < 100 ? 5 : 2,
                           }).format(currency.price)}
                     </span>
                   </p>
                   <p className="my-2 hover:cursor-pointer">
-                    <span className="font-medium">Market Cap:</span> $
-                    <span
-                      className="hover:cursor-pointer"
-                      data-current={3}
-                      data-min={3}
-                      data-max={6}
-                      onClick={(e) => toggleMillify(e, currency.marketCap)}
-                    >
-                      {millify(currency.marketCap, {
-                        precision: 3,
-                        space: true,
-                      })}
+                    <span className="font-medium">Market Cap: </span>
+                    <span>
+                      {new Intl.NumberFormat(
+                        "en-US", {
+                          style: "currency",
+                          currency: "USD",
+                          notation: "compact",
+                          maximumFractionDigits: 3,
+                        }).format(currency.marketCap)}
                     </span>
                   </p>
                   <p className="my-2">
@@ -120,7 +97,7 @@ const Currencies = ({ simplified }) => {
                         currency.change > 0 ? "text-green-500" : "text-red-500"
                       }`}
                     >
-                      {millify(currency.change, { precision: 2 })}%
+                      {new Intl.NumberFormat("en-US", {style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2}).format(currency.change/100)}
                     </span>
                   </p>
                 </div>

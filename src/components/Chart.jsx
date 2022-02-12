@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   ReferenceArea,
 } from "recharts";
-import millify from "millify";
+
 import { format, fromUnixTime } from "date-fns";
 
 const Chart = ({ coinHistory, period, color }) => {
@@ -197,9 +197,7 @@ const Chart = ({ coinHistory, period, color }) => {
           </p>
           <p style={{ chartColor }}>
             <span className="font-medium">Price:</span>{" "}
-            {payload[0].value < 10
-              ? `$${millify(payload[0].value, { precision: 8 })}`
-              : new Intl.NumberFormat("en-US", {
+            {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
                 }).format(payload[0].value)}
