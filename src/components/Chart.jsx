@@ -46,6 +46,9 @@ const Chart = ({ coinHistory, period, color }) => {
     refAreaLeftIndex: -1,
     refAreaRightIndex: -1,
     animation: true,
+    bottom: "dataMin",
+    top: "dataMax",
+    
   });
 
   const zoom = () => {
@@ -71,6 +74,12 @@ const Chart = ({ coinHistory, period, color }) => {
         refAreaLeftIndex,
       ];
     }
+    
+    // yAxis domain
+    const zoomedData = chartData.slice(refAreaLeftIndex, refAreaRightIndex)
+    const refBottom = zoomedData.reduce((prev, curr) => prev.price < curr.price ? prev : curr).price;
+    const refTop = zoomedData.reduce((prev, curr) => prev.price < curr.price ? curr : prev).price;
+    console.log(refBottom, refTop);
 
     setChartState({
       ...chartState,
@@ -80,6 +89,8 @@ const Chart = ({ coinHistory, period, color }) => {
       refAreaRight: "",
       refAreaLeftIndex: -1,
       refAreaRightIndex: -1,
+      bottom: refBottom,
+      top: refTop,
     });
   };
 
@@ -92,6 +103,8 @@ const Chart = ({ coinHistory, period, color }) => {
       refAreaRight: "",
       refAreaLeftIndex: -1,
       refAreaRightIndex: -1,
+      top: "dataMin",
+      bottom: "dataMax",
     });
   };
 
@@ -167,8 +180,7 @@ const Chart = ({ coinHistory, period, color }) => {
             fill="#666"
             className="text-sm select-none"
           >
-            ${millify(payload.value, { precision: screenSize < 768 ? 0 : 2 })}
-            {/* ${new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(payload.value)} */}
+            {new Intl.NumberFormat('en-US', { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: payload.value >= 10 ? 2 : 5}).format(payload.value)}
           </text>
         </g>
       );
@@ -199,7 +211,7 @@ const Chart = ({ coinHistory, period, color }) => {
     return null;
   };
 
-  const { data, left, right, refAreaLeft, refAreaRight, animation } =
+  const { data, left, right, refAreaLeft, refAreaRight, bottom, top, animation } =
     chartState;
 
   return (
@@ -251,7 +263,7 @@ const Chart = ({ coinHistory, period, color }) => {
             />
             <YAxis
               allowDataOverflow
-              domain="auto"
+              domain={[bottom, top]}
               type="number"
               tick={<YAxisTick />}
             />
