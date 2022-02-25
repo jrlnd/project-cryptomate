@@ -8,7 +8,7 @@ Cryptomate is a cryptocurrency app that displays current information about the c
 
 # Overview
 
-I wanted to create a project to practice learning how to create an app with React. It was heavily inspired by the Javascript Mastery's [Cryptoverse project](https://www.youtube.com/watch?v=9DDX3US3kss) with lots of changes regarding the tools that were originally used.
+I wanted to create a project to practice learning how to create an app with React. It was inspired by the Javascript Mastery's [Cryptoverse project](https://www.youtube.com/watch?v=9DDX3US3kss) with lots of changes regarding the tools that were originally used.
 
 ## Tech Stack
 
