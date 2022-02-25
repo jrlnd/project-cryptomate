@@ -200,6 +200,8 @@ const Chart = ({ coinHistory, period, color }) => {
             {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
+                  notation: "compact", 
+                  maximumFractionDigits: payload.value >= 10 ? 2 : 8
                 }).format(payload[0].value)}
           </p>
         </div>
