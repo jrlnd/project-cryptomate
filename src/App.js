@@ -13,7 +13,7 @@ const App = () => {
   return (
     <div>
       <Sidebar />
-      <div className="max-w-full mx-8 mt-24 md:ml-80 md:mt-12">
+      <div className="max-w-full mx-8 mt-24 md:ml-80 md:mt-12 text-gray-900">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/currencies" element={<Currencies />} />
