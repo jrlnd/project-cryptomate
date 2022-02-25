@@ -201,7 +201,7 @@ const Chart = ({ coinHistory, period, color }) => {
                   style: "currency",
                   currency: "USD",
                   notation: "compact", 
-                  maximumFractionDigits: payload.value >= 10 ? 2 : 8
+                  maximumFractionDigits: payload[0].value >= 10 ? 2 : 8
                 }).format(payload[0].value)}
           </p>
         </div>
